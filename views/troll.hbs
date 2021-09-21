@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="container">
+        <video id="video" width="320" height="240" autoplay loop>
+            {{!-- <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4"> --}}
+        </video>
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let nameUser = prompt('Nhập tên của bạn')
+    let socket = io()
+    let result = null
+    let check = Math.floor(Math.random()*100)
+    if(check < 50 ){
+        result = 'rickroll'
+    }else{
+        result = 'wibu'
+    }
+    socket.emit('result',{result : result});
+    let video = document.getElementById('video')
+    socket.on('url',(url)=>{
+        video.src = url 
+    })
+</script>
+</html>
